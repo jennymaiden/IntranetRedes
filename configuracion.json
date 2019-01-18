@@ -1,0 +1,8 @@
+{
+	//Vaiables para SMTP
+
+	//Variables para FTP
+	"ftp_server": "127.0.0.1",
+	"ftp_usuario": "admin",
+	"ftp_pass":"123456"
+}

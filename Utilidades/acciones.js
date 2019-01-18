@@ -71,7 +71,7 @@ function navegacionMenu(tema){
 
 function navegacionPagina(tema, subtema){
 	//var ruta = tema+"/"+tema+".html"+"#"+subtema;
-	var ruta = tema+"/"+subtema+".html";
+	var ruta = tema+"/"+subtema+".php";
 	if(tema =="index"){
 		ruta = "portada.html"
 	}

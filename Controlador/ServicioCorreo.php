@@ -10,7 +10,7 @@ $cabeceras = 'From: carolina.vc.94@hotmail.es' . "\r\n" .
 
 echo "Correo: "+mail($para, $titulo, $mensaje, $cabeceras);*/
 
-ini_set( 'display_errors', 1 );
+/*ini_set( 'display_errors', 1 );
    error_reporting( E_ALL );
    $from = "test@hostinger-tutorials.com";
    $to = "test@gmail.com";
@@ -18,7 +18,8 @@ ini_set( 'display_errors', 1 );
    $message = "PHP mail works just fine";
    $headers = "From:" . $from;
    mail($to,$subject,$message, $headers);
-   echo "The email message was sent.";
+   echo "The email message was sent.";*/
 
 echo "<br>Correo enviado";
+header("Location: ../Modulos/emails.php?result=true");
 ?>

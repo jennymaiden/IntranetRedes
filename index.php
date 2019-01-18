@@ -1,6 +1,3 @@
-<?php
-  echo "HOla yenny";
-?>
 <html>
 <head>
 	<!--Estilos-->
@@ -36,8 +33,8 @@
 				<li class="">
 					<div class="link"><i class="fa fa-tachometer"></i>Menu Principal<i class="fa fa-chevron-down"></i></div>
 					<ul class="submenu">
-						<li><a href="#movOndulatorio" onclick="navegacionPagina('Capitulo16','movimientoOndulatorio')">Inicio</a></li>
-						<li><a href="#desParticula" onclick="navegacionPagina('Capitulo16','desplazamientoParticulas')">Dirección del desplazamiento de las particulas</a></li>
+						<li><a href="#" onclick="navegacionPagina('Modulos','emails')">Envio de correos SMTP</a></li>
+						<li><a href="#" onclick="navegacionPagina('Modulos','archivos')">Archivos FTP</a></li>
 
 					</ul>
 				</li>
@@ -47,7 +44,7 @@
 		</div>
 		<div class="col-sm-9">
 
-			<iframe src="portada.html"  marginwidth="0" marginheight="0" name="ventana_iframe" scrolling="yes" border="0" frameborder="0" width="100%" height="100%" id="contenedorPrincipal1" style="box-shadow: #FF8C2F 2px 2px 2px 2px ">
+			<iframe src="portada.html"  marginwidth="0" marginheight="0" name="ventana_iframe" scrolling="yes" border="0" frameborder="0" width="100%" height="100%" id="contenedorPrincipal1" style="box-shadow: #bce8f1 2px 2px 2px 2px ">
 
 			</iframe>
 

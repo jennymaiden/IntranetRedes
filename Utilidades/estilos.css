@@ -37,7 +37,7 @@ ul {
 }
 
 a {
-    color: #b63b4d;
+    color: #000099;
     text-decoration: none;
 }
 
@@ -80,7 +80,7 @@ a {
     cursor: pointer;
     display: block;
     padding: 15px 15px 15px 42px;
-    color: #4D4D4D;
+    color: #31708f;
     font-size: 14px;
     font-weight: 700;
     border-bottom: 1px solid #CCC;
@@ -112,11 +112,11 @@ a {
 }
 
 .accordion li.open .link {
-    color: #b63b4d;
+    color: #000099;
 }
 
 .accordion li.open i {
-    color: #b63b4d;
+    color: #000099;
 }
 .accordion li.open i.fa-chevron-down {
     -webkit-transform: rotate(180deg);
@@ -151,6 +151,6 @@ a {
  }
 
  .submenu a:hover {
-    background: #b63b4d;
+    background: #000099;
     color: #FFF;
  }
