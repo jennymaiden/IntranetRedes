@@ -1,25 +1,22 @@
 <?php
 echo "enviar correo <br>";
-/*$para      = 'jennymaiden.vc@gmail.com';
-$titulo    = 'El título';
-$mensaje   = 'Hola';
-$cabeceras = 'From: carolina.vc.94@hotmail.es' . "\r\n" .
-    'Reply-To: carolina.vc.94@hotmail.es' . "\r\n" .
-    'X-Mailer: PHP/' . phpversion();
+/**
+ * Para poder realizar el envio de correo fue necesario modificar el archivo
+ * PHP.INI en donde se cambiaron las siguientes variables:
+ * smtp_port=25 --El puerto
+ * sendmail_from = postmaster@localhost  --El usuario que envia el correo
+ * SMTP=localhost --El servidor SMTP
+ */
+// El mensaje :::Si cualquier línea es más larga de 70 caracteres, se debería usar wordwrap()
+$mensaje = wordwrap($_POST['mensaje'], 70, "\r\n");
+//Funcion para el envio de correos
+$envio = mail($_POST['destino'], $_POST['asunto'], $mensaje);
 
+if (isset($envio)) {
+  $respuesta = 'true';  
+}else{
+  $respuesta = 'false';
+}
 
-echo "Correo: "+mail($para, $titulo, $mensaje, $cabeceras);*/
-
-/*ini_set( 'display_errors', 1 );
-   error_reporting( E_ALL );
-   $from = "test@hostinger-tutorials.com";
-   $to = "test@gmail.com";
-   $subject = "Checking PHP mail";
-   $message = "PHP mail works just fine";
-   $headers = "From:" . $from;
-   mail($to,$subject,$message, $headers);
-   echo "The email message was sent.";*/
-
-echo "<br>Correo enviado";
-header("Location: ../Modulos/emails.php?result=true");
+header("Location: ../Modulos/emails.php?result=".$respuesta);
 ?>
