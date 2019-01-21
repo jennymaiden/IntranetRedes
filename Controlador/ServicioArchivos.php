@@ -1,10 +1,37 @@
 <?php 	
+//Obtener los datos del archivo json
 $data = file_get_contents("../configuracion.json");
 $variables = json_decode($data, true);
-print_r($variables);
-foreach ($variables as $product) {
-    print_r($product);
-}
+//print_r($variables);
 
-echo "un parametro seria:::...".$variables['ftp_server'];
+	$conexion = ftp_connect($variables['ftp_server']);
+	$login_respuesta =ftp_login($conexion, $variables['ftp_usuario'], $variables['ftp_pass']);
+
+	if ( (!$conexion) || (!$login_respuesta)) {
+		echo "No se pudo realizar la conexion";
+		# code...
+		exit;
+	}else {
+		echo "Conexion Exitosa";
+		$nombre= $_FILES['documento']['name'];
+		echo "el nombre es:...".$nombre;
+		$temp = explode(".", $_FILES['documento']['name']);
+		$source_file=$_FILES['documento']['tmp_name'];
+		$destino= "../Documentos";
+		
+		echo "<br>::::::::::::::::".$source_file;
+		//Si el servidor se archivos se encutra en modo pasivo
+		//ftp_pass($conexion,true);
+
+		//Subir el archivo
+		$subio = ftp_put($conexion, $destino.'/'.$nombre, $source_file, FTP_BINARY);
+
+		if ($subio) {
+			echo "Archivo cargado correctamente";
+			//header("Location: listaArchivos.php");
+		}else{
+			echo "Ocurrio algun error al cargar el archivo";
+		}
+	}
+
 ?>
