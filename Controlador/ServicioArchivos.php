@@ -12,14 +12,14 @@ $variables = json_decode($data, true);
 		# code...
 		exit;
 	}else {
-		echo "Conexion Exitosa";
+		echo "Conexion Exitosa<br>";
 		$nombre= $_FILES['documento']['name'];
-		echo "el nombre es:...".$nombre;
+		//echo "el nombre es:...".$nombre;
 		$temp = explode(".", $_FILES['documento']['name']);
 		$source_file=$_FILES['documento']['tmp_name'];
-		$destino= "../Documentos";
+		$destino= "Documentos";
 		
-		echo "<br>::::::::::::::::".$source_file;
+		
 		//Si el servidor se archivos se encutra en modo pasivo
 		//ftp_pass($conexion,true);
 
