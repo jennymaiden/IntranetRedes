@@ -3,7 +3,6 @@
 	<!--Estilos-->
 	<link href="Utilidades/Bootstrap/bootstrap.min.css" rel="stylesheet">
 	<link href="Utilidades/estilos.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<!--Acciones-->
 
 	<script src="Utilidades/jquery.min.js"></script>
@@ -29,18 +28,26 @@
 		<div class="col-sm-3">
 			<!-- Contenedor -->
 
-			<ul id="accordion" class="accordion">
-				<li class="">
-					<div class="link"><i class="fa fa-tachometer"></i>Menu Principal<i class="fa fa-chevron-down"></i></div>
-					<ul class="submenu">
-						<li><a href="#" onclick="navegacionPagina('Modulos','emails')">Envio de correos SMTP</a></li>
-						<li><a href="#" onclick="navegacionPagina('Modulos','archivos')">Archivos FTP</a></li>
+			<?php
+				if (isset($_GET['result'])){ ?>
 
+					<ul id="accordion" class="accordion">
+						<li class="">
+							<div class="link"><i class="fa fa-tachometer"></i>Menu Principal<i class="fa fa-chevron-down"></i></div>
+							<ul class="submenu">
+								<li><a href="#" onclick="navegacionPagina('Modulos','emails')">Envio de correos SMTP</a></li>
+								<li><a href="#" onclick="navegacionPagina('Modulos','archivos')">Archivos FTP</a></li>
+								<li><a href="#" onclick="navegacionPagina('Modulos','baseDatos')">Prueba Base datos</a></li>
+
+							</ul>
+						</li>
 					</ul>
-				</li>
+			<?php }else{ ?>
 
-
-			</ul>
+				<button type="Button" class="btn btn-info" onclick="autenticarUsuario()">Autenticarse</button>
+			<?php	}
+			?>
+			
 		</div>
 		<div class="col-sm-9">
 

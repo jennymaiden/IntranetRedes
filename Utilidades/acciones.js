@@ -80,3 +80,12 @@ function navegacionPagina(tema, subtema){
 	$('#contenedorPrincipal').load(ruta);
 	window.frames["ventana_iframe"].location = ruta;
 }
+
+/**
+ * Funcion para la autenticacion de usuario
+ */
+function autenticarUsuario(){
+	//alert("autenticar usuario");
+	$('#contenedorPrincipal').load("Modulos/autenticacion.php");
+	window.frames["ventana_iframe"].location = "Modulos/autenticacion.php";
+}
