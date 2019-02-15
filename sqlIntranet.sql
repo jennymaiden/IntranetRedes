@@ -82,3 +82,22 @@ CREATE TABLE servicio_empleado(
 	FOREIGN KEY (id_servicio) REFERENCES servicio(id),
 	FOREIGN KEY (id_empleado) REFERENCES empleado(id)
 );
+
+-----------------Insertar datos
+INSERT INTO area (nombre) values ('Atención cliente'); 
+INSERT INTO area (nombre) values ('Recursos Humanos'); 
+INSERT INTO area (nombre) values ('Dirección comercial');
+INSERT INTO area (nombre) values ('Oprativa');
+INSERT INTO area (nombre) values ('Tecnologia');
+
+select * from area;
+select * from empleado_autenticacion;
+
+-----------------
+INSERT INTO empleado_autenticacion (usuario,contrasenia) values ('balfonso','Enero2019');
+INSERT INTO empleado_autenticacion (usuario,contrasenia) values ('jvelez','Enero2019');
+
+-----------------------------------
+
+select * from empleado_autenticacion where usuario='balfonso' and contrasenia='Enero2019';
+ 

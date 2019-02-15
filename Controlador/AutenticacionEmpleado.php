@@ -5,45 +5,42 @@
     if($dbconn){
     	//echo "Se pudo realizar la conexion";
     	//SQL de validar si ese usuario existe con esa contraseña
-    	$query = "select * from empleado_autenticacion where usuario='".$_POST['usuario']."' and contrasenia='".$_POST['contrasenia']."' ".
+    	$query = "select * from empleado_autenticacion where usuario='".$_POST['usuario']."' and contrasenia='".$_POST['contrasenia']."' ";
+    	//echo "SQL: ".$query;
+
     	$result = pg_query($query) or die('La consulta fallo: ' . pg_last_error());
+
     	if($result){
-    		echo "Se pudo realizar la consulta";
-    		echo "<table>\n";
-    		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-			     echo "\t<tr>\n";
-			    foreach ($line as $col_value) {
-			        echo "\t\t<td>$col_value</td>\n";
-			    }
-			    echo "\t</tr>\n";
-			}
+    		/*echo "Se pudo realizar la consulta";
+    		echo "<br>";
+    		echo "****** row afectados**** ".pg_affected_rows($result);*/
+    		if(pg_affected_rows($result) == 1){
+    			header("Location: http://localhost/IntranetRedes?usuario=".$result);
+    			/*echo "<table>\n";
+	    		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+				     echo "\t<tr>\n";
+				    foreach ($line as $col_value) {
+				        echo "\t\t<td>$col_value</td>\n";
+				    }
+				    echo "\t</tr>\n";
+				}*/
+    		}else{
+    			header("Location: ../Modulos/autenticacion.php?result=Error_Autenticacion");
+    		}
+    		
     	}else{
-    		echo "No se pudo realizar la consulta";
+    		header("Location: ../Modulos/autenticacion.php?result=Problema_Conexion");
+    		
     	}
 
     }else{
-    	echo "No se pudo realizar la conexion";
+    	header("Location: ../Modulos/autenticacion.php?result=Problema_Conexion");
     }
 
-// Realizando una consulta SQL
-/*$query = 'SELECT * FROM usuario';
-$result = pg_query($query) or die('La consulta fallo: ' . pg_last_error());
+    // Liberando el conjunto de resultados
+	pg_free_result($result);
 
-// Imprimiendo los resultados en HTML
-echo "<table>\n";
-while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-    echo "\t<tr>\n";
-    foreach ($line as $col_value) {
-        echo "\t\t<td>$col_value</td>\n";
-    }
-    echo "\t</tr>\n";
-}
-echo "</table>\n";
-
-// Liberando el conjunto de resultados
-pg_free_result($result);
-
-// Cerrando la conexión
-pg_close($dbconn);*/
+	// Cerrando la conexión
+	pg_close($dbconn);
 
 ?>

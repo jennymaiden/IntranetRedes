@@ -29,7 +29,15 @@
 			<!-- Contenedor -->
 
 			<?php
-				if (isset($_GET['result'])){ ?>
+				if (isset($_GET['usuario'])){
+					while ($line = pg_fetch_array($_GET['usuario'], null, PGSQL_ASSOC)) {
+				     echo "\t<tr>\n";
+				    foreach ($line as $col_value) {
+				        echo "\t\t<td>$col_value</td>\n";
+				    }
+				    echo "\t</tr>\n";
+				}
+				 ?>
 
 					<ul id="accordion" class="accordion">
 						<li class="">
@@ -50,6 +58,9 @@
 			
 		</div>
 		<div class="col-sm-9">
+			<?php
+			if(isset$[}])
+			?>
 
 			<iframe src="portada.html"  marginwidth="0" marginheight="0" name="ventana_iframe" scrolling="yes" border="0" frameborder="0" width="100%" height="100%" id="contenedorPrincipal1" style="box-shadow: #bce8f1 2px 2px 2px 2px ">
 
