@@ -15,7 +15,7 @@
     		echo "<br>";
     		echo "****** row afectados**** ".pg_affected_rows($result);*/
     		if(pg_affected_rows($result) == 1){
-    			header("Location: http://localhost/IntranetRedes?usuario=".$result);
+    			header("Location: ../index.php?nav=principal&usuario=".$result);
     			/*echo "<table>\n";
 	    		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
 				     echo "\t<tr>\n";

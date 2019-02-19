@@ -24,7 +24,7 @@
   	      		<?php 
   	      			}
   	      		?>
-  	      		<form action="../Controlador/AutenticacionEmpleado.php" method="POST" accept-charset="utf-8" align="center">
+  	      		<form action="Controlador/AutenticacionEmpleado.php" method="POST" accept-charset="utf-8" align="center">
 		  	      			<div class="form-group row">
 							    <label for="usuario" class="col-sm-2 col-form-label text-right">Usuario</label>
 							    <div class="col-sm-8">

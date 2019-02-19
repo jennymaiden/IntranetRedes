@@ -30,7 +30,7 @@ $( document ).ready(function() {
 cssLink.href = "Utilidades/Bootstrap/bootstrap.min.css";
 cssLink.rel = "stylesheet";
 cssLink.type = "text/css";
-frames['ventana_iframe'].document.head.appendChild(cssLink);*/
+frames['ventana_iframe'].document.head.appendChild(cssLink);
 
 var frm = frames['ventana_iframe'].document;
 var otherhead = frm.getElementsByTagName("head")[0];
@@ -38,7 +38,7 @@ var link = frm.createElement("link");
 link.setAttribute("rel", "stylesheet");
 link.setAttribute("type", "text/css");
 link.setAttribute("href", " Utilidades/Bootstrap/bootstrap.css");
-otherhead.appendChild(link);
+otherhead.appendChild(link);*/
 
 });
 
@@ -77,8 +77,28 @@ function navegacionPagina(tema, subtema){
 	}
 
 	console.log("La ruta que va cargar es:....."+ruta);
-	$('#contenedorPrincipal').load(ruta);
-	window.frames["ventana_iframe"].location = ruta;
+	//$('#contenedorPrincipal').load(ruta);
+	//window.frames["ventana_iframe"].location = ruta;
+	// capturamos la url
+        var loc = document.location.href;
+        // si existe el interrogante
+        if(loc.indexOf('?')>0)
+        {
+            // cogemos la parte de la url que hay despues del interrogante
+            var getString = loc.split('?')[1];
+            // obtenemos un array con cada clave=valor
+            var GET = getString.split('&');
+            var get = {};
+            // recorremos todo el array de valores
+            for(var i = 0, l = GET.length; i < l; i++){
+                var tmp = GET[i].split('=');
+                get[tmp[0]] = unescape(decodeURI(tmp[1]));
+            }
+            return get;
+        }else{
+        	console.log("la ruta que tomo es "+loc);
+        }
+	document.href="index.php?nav="+subtema+"";
 }
 
 /**
@@ -86,6 +106,9 @@ function navegacionPagina(tema, subtema){
  */
 function autenticarUsuario(){
 	//alert("autenticar usuario");
-	$('#contenedorPrincipal').load("Modulos/autenticacion.php");
-	window.frames["ventana_iframe"].location = "Modulos/autenticacion.php";
+	/*$('#contenedorPrincipal').load("Modulos/autenticacion.php");
+	window.frames["ventana_iframe"].location = "Modulos/autenticacion.php";*/
+	var loc = document.location.href;
+	console.log("lan ruta es::..."+loc);
+	location.href=loc+"index.php?nav=autenticacion";
 }

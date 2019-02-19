@@ -59,12 +59,24 @@
 		</div>
 		<div class="col-sm-9">
 			<?php
-			if(isset$[}])
+			if(isset($_GET['nav'])){
+				$navegacion = $_GET['nav'];
+				//echo "la navegacion es .:::: ".$navegacion;
+				if($navegacion == "principal"){
+					include_once "portada.html";
+				}
+				if($navegacion =="autenticacion"){
+					include_once "Modulos/autenticacion.php";
+				}
+			} else{
+
+				include_once "portada.html";
+			}
 			?>
 
-			<iframe src="portada.html"  marginwidth="0" marginheight="0" name="ventana_iframe" scrolling="yes" border="0" frameborder="0" width="100%" height="100%" id="contenedorPrincipal1" style="box-shadow: #bce8f1 2px 2px 2px 2px ">
+			<!--<iframe src="portada.html"  marginwidth="0" marginheight="0" name="ventana_iframe" scrolling="yes" border="0" frameborder="0" width="100%" height="100%" id="contenedorPrincipal1" style="box-shadow: #bce8f1 2px 2px 2px 2px ">
 
-			</iframe>
+			</iframe> -->
 
 		</div>
 	</div>
