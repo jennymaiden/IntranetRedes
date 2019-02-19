@@ -25,24 +25,23 @@
 		</div>
 	</div>
 	<div class="row">
+		<?php
+			if (isset($_GET['usuario'])){ ?>
+					<div class="alert alert-success col-sm-12 " role="alert" >
+					  <STRONG>Bienvenido!</STRONG>
+					</div>
+		<?php }?>
 		<div class="col-sm-3">
 			<!-- Contenedor -->
 
 			<?php
-				if (isset($_GET['usuario'])){
-					while ($line = pg_fetch_array($_GET['usuario'], null, PGSQL_ASSOC)) {
-				     echo "\t<tr>\n";
-				    foreach ($line as $col_value) {
-				        echo "\t\t<td>$col_value</td>\n";
-				    }
-				    echo "\t</tr>\n";
-				}
-				 ?>
-
+				if (isset($_GET['usuario'])){ ?>
+					
 					<ul id="accordion" class="accordion">
 						<li class="">
 							<div class="link"><i class="fa fa-tachometer"></i>Menu Principal<i class="fa fa-chevron-down"></i></div>
 							<ul class="submenu">
+
 								<li><a href="#" onclick="navegacionPagina('Modulos','emails')">Envio de correos SMTP</a></li>
 								<li><a href="#" onclick="navegacionPagina('Modulos','archivos')">Archivos FTP</a></li>
 								<li><a href="#" onclick="navegacionPagina('Modulos','baseDatos')">Prueba Base datos</a></li>

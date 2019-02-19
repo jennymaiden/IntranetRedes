@@ -5,7 +5,7 @@
     if($dbconn){
     	//echo "Se pudo realizar la conexion";
     	//SQL de validar si ese usuario existe con esa contraseña
-    	$query = "select * from empleado_autenticacion where usuario='".$_POST['usuario']."' and contrasenia='".$_POST['contrasenia']."' ";
+    	$query = "select id from empleado_autenticacion where usuario='".$_POST['usuario']."' and contrasenia='".$_POST['contrasenia']."' ";
     	//echo "SQL: ".$query;
 
     	$result = pg_query($query) or die('La consulta fallo: ' . pg_last_error());
@@ -15,7 +15,10 @@
     		echo "<br>";
     		echo "****** row afectados**** ".pg_affected_rows($result);*/
     		if(pg_affected_rows($result) == 1){
-    			header("Location: ../index.php?nav=principal&usuario=".$result);
+    			$row = pg_fetch_assoc($result);
+
+    			//echo "<br>la respuesta es:...".$row['id'];
+    			header("Location: ../index.php?nav=principal&usuario=".$row['id']);
     			/*echo "<table>\n";
 	    		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
 				     echo "\t<tr>\n";

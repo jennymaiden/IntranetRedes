@@ -100,4 +100,9 @@ INSERT INTO empleado_autenticacion (usuario,contrasenia) values ('jvelez','Enero
 -----------------------------------
 
 select * from empleado_autenticacion where usuario='balfonso' and contrasenia='Enero2019';
+select * from empleado;
+select * from area;
+
+-----------Insertar en empleado-----------------
+INSERT INTO empleado (nombre, apellido, direccion, telefono,correo,id_autenticacion, id_area) values('Brian','lopez','Calle 100','123','balfonso@redcolfondos.ud',1,5)
  
