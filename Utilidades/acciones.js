@@ -75,7 +75,7 @@ function navegacionPagina(tema, subtema){
 	if(tema =="index"){
 		ruta = "portada.html"
 	}
-
+	document.href="index.php?nav="+subtema+"";
 	console.log("La ruta que va cargar es:....."+ruta);
 	//$('#contenedorPrincipal').load(ruta);
 	//window.frames["ventana_iframe"].location = ruta;
@@ -98,7 +98,7 @@ function navegacionPagina(tema, subtema){
         }else{
         	console.log("la ruta que tomo es "+loc);
         }
-	document.href="index.php?nav="+subtema+"";
+	
 }
 
 /**

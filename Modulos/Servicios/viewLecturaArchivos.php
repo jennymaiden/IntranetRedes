@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="bootstrap.min.css">
+
+</head>
+<body>
+	<div class="panel-group">
+		<div class="panel panel-info">
+			<div class="panel-heading" align="center"><h2>Lectura archivos</h2></div>
+  	      	<div class="panel-body">
+  	      		<?php
+  	      			if (isset($_GET['result'])){ ?>
+  	      				<div class="alert alert-danger alert-dismissible " role="alert">
+						  <strong>Ocurrio un problema!</strong> <?php echo "".$_GET['result']; ?>
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						    <span aria-hidden="true">&times;</span>
+						  </button>
+						</div>
+						
+  	      		<?php 
+  	      			}
+  	      		?>
+  	      		<table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Nombre Archivo</th>
+				        <th>Usuario</th>
+				        <th>Descarga</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td>John</td>
+				        <td>12/02/2019 hasta 01/09/2020</td>
+				        <td>$10.000.000</td>
+				      </tr>
+				      
+				    </tbody>
+				</table>
+
+  	      	</div>
+		</div>
+		
+	</div>
+</body>
+</html>

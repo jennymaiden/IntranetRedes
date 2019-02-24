@@ -98,9 +98,20 @@ INSERT INTO empleado_autenticacion (usuario,contrasenia) values ('balfonso','Ene
 INSERT INTO empleado_autenticacion (usuario,contrasenia) values ('jvelez','Enero2019');
 
 -----------------------------------
+------------**Crear tabla de archivos
+CREATE TABLE empleado_archivo(
+	id serial primary key,
+	nombre_archivo text,
+	ruta text,
+	id_empleado integer,
+	FOREIGN KEY (id_empleado) REFERENCES empleado(id)
+	
+);
+------------------------------
 
 select * from empleado_autenticacion where usuario='balfonso' and contrasenia='Enero2019';
 select * from empleado;
+	select * from servicio;
 select * from area;
 
 -----------Insertar en empleado-----------------
