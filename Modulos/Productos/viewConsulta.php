@@ -11,18 +11,7 @@
 		<div class="panel panel-info">
 			<div class="panel-heading" align="center"><h2>Consulta Producto o Servicio</h2></div>
   	      	<div class="panel-body">
-  	      		<?php
-  	      			if (isset($_GET['result'])){ ?>
-  	      				<div class="alert alert-danger alert-dismissible " role="alert">
-						  <strong>Ocurrio un problema!</strong> <?php echo "".$_GET['result']; ?>
-						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						    <span aria-hidden="true">&times;</span>
-						  </button>
-						</div>
-						
-  	      		<?php 
-  	      			}
-  	      		?>
+  	      		
   	      		<table class="table table-hover">
 				    <thead>
 				      <tr>
@@ -32,11 +21,36 @@
 				      </tr>
 				    </thead>
 				    <tbody>
-				      <tr>
-				        <td>John</td>
-				        <td>12/02/2019 hasta 01/09/2020</td>
-				        <td>$10.000.000</td>
-				      </tr>
+				    	<?php
+				    		$data = file_get_contents("./configuracion.json");
+							$variables = json_decode($data, true);
+							$dbconn = pg_connect($variables['conexion_bd']) or die('No se ha podido conectar: ' . pg_last_error());
+						    if($dbconn){
+						    	$query="select nombre, vigencia, costo from servicio;";
+						    	$result = pg_query($query) or die('La consulta fallo: ' . pg_last_error());
+						    	if ($result) {
+						    		
+						    		if(pg_affected_rows($result) > 0){
+						    			while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+										     echo "\t<tr>\n";
+										    
+										    foreach ($line as $col_value) {
+										        echo "\t\t<td>$col_value</td>\n";
+										    }
+										    echo "\t</tr>\n";
+										}
+						    		}else {
+						    			echo "No ahi resultados";
+						    		}
+						    	}else {
+
+						    		echo "Fallo consulta";
+						    	}
+						    }else{
+						    	echo "No se pudo conectar";
+						    }
+				    	?>
+				      
 				      
 				    </tbody>
 				</table>

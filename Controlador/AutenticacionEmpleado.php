@@ -1,6 +1,9 @@
 <?php
 
-	$dbconn = pg_connect("host=localhost dbname=Intranet user=postgres password=123456")
+    $data = file_get_contents("../configuracion.json");
+    $variables = json_decode($data, true);
+
+	$dbconn = pg_connect($variables['conexion_bd'])
     or die('No se ha podido conectar: ' . pg_last_error());
     if($dbconn){
     	//echo "Se pudo realizar la conexion";

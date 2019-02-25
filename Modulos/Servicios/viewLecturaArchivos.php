@@ -11,32 +11,33 @@
 		<div class="panel panel-info">
 			<div class="panel-heading" align="center"><h2>Lectura archivos</h2></div>
   	      	<div class="panel-body">
-  	      		<?php
-  	      			if (isset($_GET['result'])){ ?>
-  	      				<div class="alert alert-danger alert-dismissible " role="alert">
-						  <strong>Ocurrio un problema!</strong> <?php echo "".$_GET['result']; ?>
-						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						    <span aria-hidden="true">&times;</span>
-						  </button>
-						</div>
-						
-  	      		<?php 
-  	      			}
-  	      		?>
+  	      		
   	      		<table class="table table-hover">
 				    <thead>
 				      <tr>
 				        <th>Nombre Archivo</th>
-				        <th>Usuario</th>
 				        <th>Descarga</th>
 				      </tr>
 				    </thead>
 				    <tbody>
-				      <tr>
-				        <td>John</td>
-				        <td>12/02/2019 hasta 01/09/2020</td>
-				        <td>$10.000.000</td>
-				      </tr>
+				    	<?php 
+				    		$data = file_get_contents("./configuracion.json");
+							$variables = json_decode($data, true);
+				    		$path="./".$variables['ruta_archivos']."/";
+				    		$directorio=dir($path);
+				    		while ($archivo = $directorio->read())
+							{
+								if($archivo !="." && $archivo !=".."){
+									echo "<tr>
+								        <td>".$archivo."</td>
+								        <td><a href='./Controlador/Servicios/descargarArchivo.php?documento=".$archivo."'>Descargar</a></td>
+								      </tr>";
+								}
+								
+							}
+							$directorio->close();
+				    	?>
+				     
 				      
 				    </tbody>
 				</table>

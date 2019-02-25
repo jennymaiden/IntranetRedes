@@ -16,7 +16,7 @@
 <body>
 	<div class="row">
 		<div class="col-sm-2">
-			<img src="Utilidades/Imagenes/Colfondos_logo.png" alt="Logo de la universidad distrital" class="img_logo"  href="index.php">
+			<img src="Utilidades/Imagenes/Colfondos_logo.png" alt="Logo de la universidad distrital" class="img_logo" onclick="navegacionPagina('index','')" >
 		</div>
     <div class="col-sm-1">
     </div>
@@ -26,9 +26,40 @@
 	</div>
 	<div class="row">
 		<?php
-			if (isset($_GET['usuario'])){ ?>
+			$permisos[] = array();
+			if (isset($_GET['usuario'])){ 
+				//Manejo de permisos
+				$data = file_get_contents("configuracion.json");
+				$variables = json_decode($data, true);
+				$dbconn = pg_connect($variables['conexion_bd']) or die('No se ha podido conectar: ' . pg_last_error());
+				$usuario="";
+
+				if($dbconn){
+					$query="select id_area, nombre from empleado where id=".$_GET['usuario'].";";
+					$result = pg_query($query) or die('La consulta fallo: ' . pg_last_error());
+					if ($result) {
+
+						$row = pg_fetch_assoc($result);
+						//echo "*********Area***********".$row['id_area'];echo "<br>";
+						$query2 = " select * from area_permiso where id_area=".$row['id_area'];
+						$result2 = pg_query($query2) or die('La consulta fallo: ' . pg_last_error());
+						while ($line = pg_fetch_array($result2, null, PGSQL_ASSOC)) {
+							//var_dump($line);echo "<br>";
+							$permisos[]=$line['id_permiso'];
+						}
+						//var_dump($permisos);echo "<br>";
+
+						$usuario=$row['nombre'];	
+						
+					}else {
+						echo "Fallo consulta";
+					}
+				}else{
+					echo "No se pudo conectar";
+				}
+				?>
 					<div class="alert alert-success col-sm-12 " style="margin-left: 30px"role="alert" >
-					  <STRONG>Bienvenido!</STRONG>
+					  <STRONG>Bienvenido  <?php echo $usuario; ?>!</STRONG>
 					</div>
 		<?php }?>
 		<div class="col-sm-3">
@@ -39,60 +70,106 @@
 					?>
 					
 					<ul id="accordion" class="accordion">
-						<!--<li class="">
+						<!-- Menu principal -->
+						<li class="">
 							<div class="link"><i class="fa fa-tachometer"></i>Menu Principal<i class="fa fa-chevron-down"></i></div>
 							<ul class="submenu">
 
-								<li><a href="#" onclick="navegacionPagina('Modulos','emails')">Envio de correos SMTP</a></li>
-								<li><a href="#" onclick="navegacionPagina('Modulos','archivos')">Archivos FTP</a></li>
-								<li><a href="#" onclick="navegacionPagina('Modulos','baseDatos')">Prueba Base datos</a></li>
+								<li><a href=<?php echo "index.php?nav=principal&usuario=".$usuario; ?> >Pagina Principal</a></li>
+								<li><a href="index.php?" >Cerrar session</a></li>
 
 							</ul>
-						</li>-->
+						</li>
 						<!-- Clientes -->
-						<li class="">
-							<div class="link"><i class="fa fa-tachometer"></i>Clientes<i class="fa fa-chevron-down"></i></div>
-							<ul class="submenu">
-
-								<li><a href=<?php echo "index.php?nav=clienConsulta&usuario=".$usuario; ?> >Consultar</a></li>
-								<li><a href=<?php echo "index.php?nav=clienCrear&usuario=".$usuario; ?>>Crear</a></li>
-								<li><a href=<?php echo "index.php?nav=clienEditar&usuario=".$usuario; ?>>Editar</a></li>
-
-							</ul>
-						</li>
+						<?php
+							if (in_array("16", $permisos)) {?>
+							    <li class="">
+									<div class="link"><i class="fa fa-tachometer"></i>Clientes<i class="fa fa-chevron-down"></i></div>
+									<ul class="submenu">
+										<?php
+											if (in_array("1", $permisos)) {
+												echo "<li><a href='index.php?nav=clienConsulta&usuario=".$usuario."' >Consultar</a></li>";
+											}
+											if (in_array("2", $permisos)) {
+												echo "<li><a href='index.php?nav=clienCrear&usuario=".$usuario."'' >Crear</a></li>";
+											}
+											if (in_array("3", $permisos)) {
+												echo "<li><a href='index.php?nav=clienEditar&usuario=".$usuario."' >Editar</a></li>";
+											}
+										?>
+									</ul>
+								</li>
+						<?php	}
+						?>
+						
 						<!-- Poductos -->
-						<li class="">
-							<div class="link"><i class="fa fa-tachometer"></i>Productos y Servicios<i class="fa fa-chevron-down"></i></div>
-							<ul class="submenu">
-
-								<li><a href=<?php echo "index.php?nav=prodConsultar&usuario=".$usuario; ?>>Consultar</a></li>
-								<li><a href=<?php echo "index.php?nav=prodCrear&usuario=".$usuario; ?>>Crear</a></li>
-								<li><a href=<?php echo "index.php?nav=prodEditar&usuario=".$usuario; ?>>Editar</a></li>
-
-							</ul>
-						</li>
+						<?php
+							if (in_array("18", $permisos)) { ?>
+								<li class="">
+									<div class="link"><i class="fa fa-tachometer"></i>Productos y Servicios<i class="fa fa-chevron-down"></i></div>
+									<ul class="submenu">
+										<?php
+											if (in_array("7", $permisos)) {
+												echo "<li><a href='index.php?nav=prodConsultar&usuario=".$usuario."' >Consultar</a></li>";
+											}
+											if (in_array("8", $permisos)) {
+												echo "<li><a href='index.php?nav=prodCrear&usuario=".$usuario."' >Crear</a></li>";
+											}
+											if (in_array("9", $permisos)) {
+												echo "<li><a href='index.php?nav=prodEditar&usuario=".$usuario."' >Editar</a></li>";
+											}
+										?>
+									</ul>
+								</li>
+						<?php	}
+						?>
+						
 						<!-- Empleados -->
-						<li class="">
-							<div class="link"><i class="fa fa-tachometer"></i>Empleados<i class="fa fa-chevron-down"></i></div>
-							<ul class="submenu">
+						<?php
+							if (in_array("17", $permisos)) { ?>
+								<li class="">
+									<div class="link"><i class="fa fa-tachometer"></i>Empleados<i class="fa fa-chevron-down"></i></div>
+									<ul class="submenu">
+										<?php
+											if (in_array("4", $permisos)) {
+												echo "<li><a href='index.php?nav=emplConsultar&usuario=".$usuario."' >Consultar</a></li>";
+											}
+											if (in_array("5", $permisos)) {
+												echo "<li><a href='index.php?nav=emplCrear&usuario=".$usuario."' >Crear</a></li>";
+											}
+											if (in_array("6", $permisos)) {
+												echo "<li><a href='index.php?nav=emplEditar&usuario=".$usuario."' >Editar</a></li>";
+											}
+										?>
 
-								<li><a href=<?php echo "index.php?nav=emplConsultar&usuario=".$usuario; ?>>Consultar</a></li>
-								<li><a href=<?php echo "index.php?nav=emplCrear&usuario=".$usuario; ?>>Crear</a></li>
-								<li><a href=<?php echo "index.php?nav=emplEditar&usuario=".$usuario; ?>>Editar</a></li>
-
-							</ul>
-						</li>
+									</ul>
+								</li>
+						<?php	}
+						?>
+						
 						<!-- Usuarios -->
-						<li class="">
-							<div class="link"><i class="fa fa-tachometer"></i>Usuarios<i class="fa fa-chevron-down"></i></div>
-							<ul class="submenu">
+						<?php
+							if (in_array("20", $permisos)) { ?>
+								<li class="">
+									<div class="link"><i class="fa fa-tachometer"></i>Usuarios<i class="fa fa-chevron-down"></i></div>
+									<ul class="submenu">
+										<?php
+											if (in_array("10", $permisos)) {
+												echo "<li><a href='index.php?nav=usuConsultar&usuario=".$usuario."' >Consultar</a></li>";
+											}
+											if (in_array("12", $permisos)) {
+												echo "<li><a href='index.php?nav=usuCrear&usuario=".$usuario."' >Crear</a></li>";
+											}
+											if (in_array("11", $permisos)) {
+												echo "<li><a href='index.php?nav=usuEditar&usuario=".$usuario."' >Editar</a></li>";
+											}
+										?>
 
-								<li><a href=<?php echo "index.php?nav=usuConsultar&usuario=".$usuario; ?>>Consultar</a></li>
-								<li><a href=<?php echo "index.php?nav=usuCrear&usuario=".$usuario; ?>>Crear</a></li>
-								<li><a href=<?php echo "index.php?nav=usuEditar&usuario=".$usuario; ?>>Editar</a></li>
-
-							</ul>
-						</li>
+									</ul>
+								</li>
+						<?php	}
+						?>
+						
 						<!-- Servicios de intranet-->
 						<li class="">
 							<div class="link"><i class="fa fa-tachometer"></i>Servicios Complementarios<i class="fa fa-chevron-down"></i></div>

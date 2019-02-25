@@ -1,5 +1,7 @@
 {
 	"ftp_server": "127.0.0.1",
 	"ftp_usuario": "admin",
-	"ftp_pass":"123456"
+	"ftp_pass":"123456",
+	"ruta_archivos":"Documentos",
+	"conexion_bd":"host=localhost dbname=Intranet user=postgres password=123456"
 }

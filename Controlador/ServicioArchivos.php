@@ -9,7 +9,7 @@ $variables = json_decode($data, true);
 
 	if ( (!$conexion) || (!$login_respuesta)) {
 		echo "No se pudo realizar la conexion";
-		# code...
+		header("Location: ../index.php?nav=cargarArchivo&usuario=".$_POST['usuario']."&result=false");
 		exit;
 	}else {
 		echo "Conexion Exitosa<br>";
@@ -17,7 +17,7 @@ $variables = json_decode($data, true);
 		//echo "el nombre es:...".$nombre;
 		$temp = explode(".", $_FILES['documento']['name']);
 		$source_file=$_FILES['documento']['tmp_name'];
-		$destino= "Documentos";
+		$destino= $variables['ruta_archivos'];
 		
 		
 		//Si el servidor se archivos se encutra en modo pasivo
@@ -28,9 +28,10 @@ $variables = json_decode($data, true);
 
 		if ($subio) {
 			echo "Archivo cargado correctamente";
-			//header("Location: listaArchivos.php");
+			header("Location: ../index.php?nav=cargarArchivo&usuario=".$_POST['usuario']."&result=true");
 		}else{
 			echo "Ocurrio algun error al cargar el archivo";
+			header("Location: ../index.php?nav=cargarArchivo&usuario=".$_POST['usuario']."&result=false");
 		}
 	}
 
